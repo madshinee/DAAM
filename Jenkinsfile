@@ -237,7 +237,7 @@ pipeline {
         // Trivy — Image Scan (avant push)
         // =====================================================================
         stage('Trivy Image Scan') {
-            parallel {
+            stages {
                 stage('Scan App Image') {
                     steps {
                         sh '''
