@@ -29,7 +29,7 @@ services:
     build:
       context: ./jenkins
       dockerfile: Dockerfile
-    image: xdshoot/poc-keycloak-jenkins:2.504
+    image: madara3/poc-keycloak-jenkins:2.504
     container_name: jenkins
     user: root
     ports:

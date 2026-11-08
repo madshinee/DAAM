@@ -160,7 +160,7 @@ Crée chaque credential dans l'ordre :
 **Credential 1 — Docker Hub**
 ```
 Kind     : Username with password
-Username : moustaphisene
+Username : madara3
 Password : <ton token Docker Hub>
 ID       : dockerhub-credentials
 ```
@@ -169,7 +169,7 @@ ID       : dockerhub-credentials
 **Credential 2 — NVD API Key (OWASP)**
 ```
 Kind   : Secret text
-Secret : <ta clé NVD>
+Secret : <ta clé NVD> 
 ID     : nvd-api-key
 ```
 > Créer la clé sur https://nvd.nist.gov/developers/request-an-api-key (gratuit, formulaire rapide).
