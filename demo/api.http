@@ -1,0 +1,56 @@
+### =====================================================================
+### Tests API Keycloak / Spring Boot (client HTTP IntelliJ, remplace Postman)
+### Environnement : choisir "local" en haut à droite du fichier.
+### Valeurs publiques : http-client.env.json
+### Secrets (client_secret, username, password) : http-client.private.env.json
+### =====================================================================
+
+### 1. Obtenir un token JWT auprès de Keycloak (flux "password", client app-springboot)
+# @name token
+POST {{keycloak}}/realms/{{realm}}/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id={{client_id}}&client_secret={{client_secret}}&username={{username}}&password={{password}}&scope=openid
+
+> {%
+    client.global.set("token", response.body.access_token);
+    client.test("token reçu", function () {
+        client.assert(response.status === 200, "HTTP " + response.status);
+        client.assert(!!response.body.access_token, "pas d'access_token");
+    });
+%}
+
+### 2. Découverte OIDC du realm (émetteur, clés publiques, endpoints)
+GET {{keycloak}}/realms/{{realm}}/.well-known/openid-configuration
+
+### 3. Informations de l'utilisateur à partir du token (vérifie que le token est valide)
+GET {{keycloak}}/realms/{{realm}}/protocol/openid-connect/userinfo
+Authorization: Bearer {{token}}
+
+### 4. API sans token : doit répondre 401
+GET {{service}}/planets
+
+> {%
+    client.test("401 sans token", function () {
+        client.assert(response.status === 401, "HTTP " + response.status);
+    });
+%}
+
+### 5. API avec token : doit répondre 200 et la liste des planètes (rôle "user" requis)
+GET {{service}}/planets
+Authorization: Bearer {{token}}
+
+> {%
+    client.test("200 avec token", function () {
+        client.assert(response.status === 200, "HTTP " + response.status);
+    });
+%}
+
+### 6. Description OpenAPI du service (équivalent de "importer la collection")
+GET {{service}}/v3/api-docs
+
+### 7. Applications déployées par le pipeline Jenkins (page d'accueil)
+GET {{app_uat}}/
+
+###
+GET {{app_preprod}}/
