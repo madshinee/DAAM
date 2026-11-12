@@ -25,7 +25,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
@@ -78,13 +77,13 @@ class SecurityConfig {
     public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 // Autorise les requêtes preflight CORS (OPTIONS) sans authentification
-                .requestMatchers(new AntPathRequestMatcher("/planets*", HttpMethod.OPTIONS.name()))
+                .requestMatchers(HttpMethod.OPTIONS, "/planets*")
                 .permitAll()
                 // /planets nécessite une authentification (contrôle fin possible avec @PreAuthorize)
-                .requestMatchers(new AntPathRequestMatcher("/planets*"))
+                .requestMatchers("/planets*")
                 .authenticated()
                 // Les autres routes racines sont publiques (landing, about)
-                .requestMatchers(new AntPathRequestMatcher("/*"))
+                .requestMatchers("/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated());

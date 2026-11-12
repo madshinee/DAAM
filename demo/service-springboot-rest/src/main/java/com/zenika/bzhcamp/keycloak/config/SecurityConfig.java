@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.server.resource.authentication.Delega
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -44,10 +43,10 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(
 				authorize -> authorize
-						.requestMatchers(new AntPathRequestMatcher("/public")).permitAll()
-						.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-						.requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-						.requestMatchers(new AntPathRequestMatcher("/planets"))
+						.requestMatchers("/public").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll()
+						.requestMatchers("/v3/api-docs/**").permitAll()
+						.requestMatchers("/planets")
 						.hasAuthority(KeycloakJwtRolesConverter.PREFIX_RESOURCE_ROLE + "realm_user")
 						.anyRequest().authenticated());
 

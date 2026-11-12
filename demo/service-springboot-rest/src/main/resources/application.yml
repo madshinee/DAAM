@@ -5,7 +5,13 @@ logging:
   level:
     root: INFO
   pattern:
-    console: "%highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+    console: "%highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable"
+
+# Swagger UI : version du webjar (pom.xml, dependencyManagement) a indiquer a springdoc,
+# sinon il cherche l'ancienne version et /swagger-ui/index.html repond 404.
+springdoc:
+  swagger-ui:
+    version: 5.34.1
 
 # Audience attendue dans le claim "aud" du JWT (validation opt-in — voir AudienceValidator).
 # Laissée vide => validation d'audience désactivée (comportement par défaut de la démo).

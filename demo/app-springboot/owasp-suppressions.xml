@@ -28,4 +28,20 @@
     </suppress>
     -->
 
+    <suppress>
+        <notes>CVE-2022-31691 concerne "Spring Tools 4 for Eclipse" (extension d'IDE), pas la bibliotheque
+               spring-boot-devtools : faux positif de correspondance de nom (CPE). devtools est optionnel et
+               exclu par defaut du jar executable deploye. Accepte le 2026-11-12, a reevaluer a chaque mise a jour.</notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework\.boot/spring-boot-devtools@.*$</packageUrl>
+        <cve>CVE-2022-31691</cve>
+    </suppress>
+
+    <suppress>
+        <notes>CVE-2025-7962 decrit une injection SMTP dans Jakarta Mail ; angus-activation (Jakarta Activation)
+               est un autre composant. 2.0.3 est la derniere version publiee, aucun correctif disponible.
+               Faux positif probable. Accepte le 2026-11-12, a reevaluer a chaque mise a jour.</notes>
+        <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@.*$</packageUrl>
+        <cve>CVE-2025-7962</cve>
+    </suppress>
+
 </suppressions>
