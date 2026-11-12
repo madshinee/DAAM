@@ -5,3 +5,13 @@ node_modules
 
 **/.DS_Store
 .idea/
+
+# Secrets du client HTTP IntelliJ
+**/http-client.private.env.json
+
+# Captures des tests Selenium (restent hors du dépôt)
+tests-selenium/captures/
+
+# Cache Python
+__pycache__/
+*.pyc
